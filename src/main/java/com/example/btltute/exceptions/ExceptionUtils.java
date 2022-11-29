@@ -17,6 +17,7 @@ public class ExceptionUtils {
   public static final String PASSWORD_NOT_VALID = "PASSWORD_NOT_VALID";
   public static final String EMAIL_NOT_VALID = "EMAIL_NOT_VALID";
   public static final String ROLE_EXISTED = "ROLE_EXISTED";
+  public static final String IMAGE_NOT_EXIST = "IMAGE_NOT_EXIST";
 
   public static final Map<String, String> messages;
 
@@ -33,5 +34,6 @@ public class ExceptionUtils {
     messages.put(ExceptionUtils.PASSWORD_NOT_VALID, "Mật khẩu không hợp lệ");
     messages.put(ExceptionUtils.EMAIL_NOT_VALID, "Email không hợp lệ");
     messages.put(ExceptionUtils.ROLE_EXISTED, "Role đã tồn tại");
+    messages.put(ExceptionUtils.IMAGE_NOT_EXIST, "Ảnh không tồn tại");
   }
 }

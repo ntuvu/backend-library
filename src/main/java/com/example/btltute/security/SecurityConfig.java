@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http.authorizeRequests().antMatchers("/api/auth/signup/**").permitAll();
     http.authorizeRequests().antMatchers("/api/auth/role/**").hasAuthority("ROLE_ADMIN");
     http.authorizeRequests().antMatchers("/api/auth/users/**").hasAuthority("ROLE_ADMIN");
+    http.authorizeRequests().antMatchers("/api/book/admin/**").hasAuthority("ROLE_ADMIN");
     http.authorizeRequests().anyRequest().authenticated();
     http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
     http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);

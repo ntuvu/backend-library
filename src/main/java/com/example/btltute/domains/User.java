@@ -3,7 +3,6 @@ package com.example.btltute.domains;
 import com.example.btltute.models.UserDTO;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,21 +24,18 @@ import lombok.Setter;
 @Table(name = "user")
 public class User {
 
+  @ManyToMany(fetch = FetchType.EAGER)
+  Collection<Role> roles = new ArrayList<>();
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
-
   @Column(name = "username")
   private String username;
-
   @Column(name = "password")
   private String password;
-
   @Column(name = "email")
   private String email;
-
-  @ManyToMany(fetch = FetchType.EAGER)
-  Collection<Role> roles = new ArrayList<>();
 
   public User(UserDTO dto) {
     this.username = dto.getUsername();
