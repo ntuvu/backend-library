@@ -49,7 +49,7 @@ public class BookController {
     return new ResponseEntity<>(HttpStatus.CREATED);
   }
 
-  @GetMapping()
+  @GetMapping
   public ResponseEntity<Object> listBook() {
     try {
       return new ResponseEntity<>(bookService.listBook(), HttpStatus.OK);

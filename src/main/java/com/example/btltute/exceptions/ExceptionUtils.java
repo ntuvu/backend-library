@@ -18,6 +18,7 @@ public class ExceptionUtils {
   public static final String EMAIL_NOT_VALID = "EMAIL_NOT_VALID";
   public static final String ROLE_EXISTED = "ROLE_EXISTED";
   public static final String IMAGE_NOT_EXIST = "IMAGE_NOT_EXIST";
+  public static final String STAR_NOT_VALID = "STAR_NOT_VALID";
 
   public static final Map<String, String> messages;
 
@@ -27,7 +28,7 @@ public class ExceptionUtils {
     messages.put(ExceptionUtils.BOOK_CATEGORY_REQUIRED, "Danh mục không được để trống");
     messages.put(ExceptionUtils.BOOK_AUTHOR_REQUIRED, "Tác giả không được để trống");
     messages.put(ExceptionUtils.BOOK_PAGE_NUMBER_NOT_VALID, "Số trang không hợp lệ");
-    messages.put(ExceptionUtils.BOOK_ID_NOT_EXIST, "ID không tồn tại");
+    messages.put(ExceptionUtils.BOOK_ID_NOT_EXIST, "Sách không tồn tại");
     messages.put(ExceptionUtils.ACCOUNT_EXISTED, "Tài khoản đã tồn tại");
     messages.put(ExceptionUtils.ACCOUNT_NOT_EXIST, "Tài khoản không tồn tại");
     messages.put(ExceptionUtils.USER_NAME_NOT_VALID, "Tài khoản không hợp lệ");
@@ -35,5 +36,6 @@ public class ExceptionUtils {
     messages.put(ExceptionUtils.EMAIL_NOT_VALID, "Email không hợp lệ");
     messages.put(ExceptionUtils.ROLE_EXISTED, "Role đã tồn tại");
     messages.put(ExceptionUtils.IMAGE_NOT_EXIST, "Ảnh không tồn tại");
+    messages.put(ExceptionUtils.STAR_NOT_VALID, "Đánh giá không hợp lệ");
   }
 }
