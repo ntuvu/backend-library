@@ -7,6 +7,8 @@ import com.example.btltute.models.RoleDTO;
 import com.example.btltute.models.RoleToUserDTO;
 import com.example.btltute.models.UserDTO;
 import java.util.List;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 public interface UserService {
 
@@ -19,4 +21,6 @@ public interface UserService {
   User getUser(String username);
 
   List<User> getUserList();
+
+  UserDetails getUserInfo() throws CustomException;
 }

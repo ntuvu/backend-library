@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin("*")
@@ -62,5 +63,19 @@ public class UserController {
   public ResponseEntity<Object> addRoleToUser(@RequestBody RoleToUserDTO dto) {
     userService.addRoleToUser(dto);
     return new ResponseEntity<>(HttpStatus.CREATED);
+  }
+
+  @GetMapping("/me")
+  public ResponseEntity<Object> getUserInfo() {
+    try {
+      return new ResponseEntity<>(userService.getUserInfo(), HttpStatus.CREATED);
+    } catch (CustomException ex) {
+      return new ResponseEntity<>(
+          new ErrorDTO(ex.getMessageKey(), ex.getMessage()), HttpStatus.BAD_REQUEST);
+    } catch (Exception ex) {
+      return new ResponseEntity<>(
+          ExceptionUtils.messages.get(ExceptionUtils.E_INTERNAL_SERVER),
+          HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 }
