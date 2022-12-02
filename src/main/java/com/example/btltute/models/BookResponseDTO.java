@@ -27,6 +27,7 @@ public class BookResponseDTO {
 
   private String category;
 
+
   public BookResponseDTO(Book book) {
     this.id = book.getId();
     this.title = book.getTitle();
