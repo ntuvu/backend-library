@@ -43,6 +43,12 @@ public class Book {
   @Column(name = "category")
   private String category;
 
+  @Column(name = "total")
+  private Integer total;
+
+  @Column(name = "cost")
+  private Double cost;
+
   public Book(BookCreateDTO dto) {
     this.title = dto.getTitle();
     this.author = dto.getAuthor();
@@ -50,6 +56,8 @@ public class Book {
     this.releaseDate = dto.getReleaseDate();
     this.pageNumber = dto.getPageNumber();
     this.category = dto.getCategory();
+    this.total = dto.getTotal();
+    this.cost = dto.getCost();
   }
 
   public void replace(BookCreateDTO dto) {
@@ -59,5 +67,7 @@ public class Book {
     this.releaseDate = dto.getReleaseDate();
     this.pageNumber = dto.getPageNumber();
     this.category = dto.getCategory();
+    this.total = dto.getTotal();
+    this.cost = dto.getCost();
   }
 }

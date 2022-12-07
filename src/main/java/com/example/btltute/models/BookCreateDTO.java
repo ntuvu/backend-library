@@ -1,6 +1,7 @@
 package com.example.btltute.models;
 
 import java.time.LocalDate;
+import javax.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,4 +24,8 @@ public class BookCreateDTO {
   private Integer pageNumber;
 
   private String category;
+
+  private Integer total;
+
+  private Double cost;
 }

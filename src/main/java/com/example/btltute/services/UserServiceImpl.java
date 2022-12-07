@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
   }
 
   @Override
-  public void addRoleToUser(RoleToUserDTO dto) {
+  public void addRoleToUser(RoleToUserDTO dto) throws CustomException {
     User user = userRepository.findUserByUsername(dto.getUsername());
     Role role = roleRepository.findRoleByName(dto.getRole());
     user.getRoles().add(role);

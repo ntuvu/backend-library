@@ -22,6 +22,9 @@ public class ExceptionUtils {
   public static final String AMOUNT_NOT_VALID = "AMOUNT_NOT_VALID";
   public static final String CART_NOT_EXIST = "CART_NOT_EXIST";
   public static final String CAR_EXISTED = "CAR_EXISTED";
+  public static final String TOTAL_NOT_VALID = "TOTAL_NOT_VALID";
+  public static final String COST_NOT_VALID = "COST_NOT_VALID";
+  public static final String ROLE_NOT_EXIST = "ROLE_NOT_EXIST";
 
   public static final Map<String, String> messages;
 
@@ -43,5 +46,8 @@ public class ExceptionUtils {
     messages.put(ExceptionUtils.AMOUNT_NOT_VALID, "Số lượng mua không hợp lệ");
     messages.put(ExceptionUtils.CART_NOT_EXIST, "Sản phẩm không có trong giỏ hàng");
     messages.put(ExceptionUtils.CAR_EXISTED, "Sản phầm đã tồn tại trong giỏ hàng");
+    messages.put(ExceptionUtils.TOTAL_NOT_VALID, "Số lượng sách không hợp lệ");
+    messages.put(ExceptionUtils.COST_NOT_VALID, "Số tiền không hợp lệ");
+    messages.put(ExceptionUtils.ROLE_NOT_EXIST, "Role không tồn tại");
   }
 }

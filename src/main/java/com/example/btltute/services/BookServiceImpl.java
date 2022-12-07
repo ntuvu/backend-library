@@ -92,5 +92,15 @@ public class BookServiceImpl implements BookService {
           ExceptionUtils.BOOK_PAGE_NUMBER_NOT_VALID,
           ExceptionUtils.messages.get(ExceptionUtils.BOOK_PAGE_NUMBER_NOT_VALID));
     }
+    if (dto.getTotal() <= 0) {
+      throw new CustomException(
+          ExceptionUtils.TOTAL_NOT_VALID,
+          ExceptionUtils.messages.get(ExceptionUtils.TOTAL_NOT_VALID));
+    }
+    if (dto.getCost() <= 0) {
+      throw new CustomException(
+          ExceptionUtils.TOTAL_NOT_VALID,
+          ExceptionUtils.messages.get(ExceptionUtils.TOTAL_NOT_VALID));
+    }
   }
 }

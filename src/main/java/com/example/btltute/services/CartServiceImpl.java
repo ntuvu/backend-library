@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CarServiceImpl implements CartService {
+public class CartServiceImpl implements CartService {
 
   private final CartRepository cartRepository;
   private final BookRepository bookRepository;
@@ -49,8 +49,13 @@ public class CarServiceImpl implements CartService {
     }
     if (cartRepository.existsByBookIdAndUserId(dto.getBookId(), user.getId())) {
       throw new CustomException(
-          ExceptionUtils.CAR_EXISTED,
-          ExceptionUtils.messages.get(ExceptionUtils.CAR_EXISTED));
+          ExceptionUtils.CAR_EXISTED, ExceptionUtils.messages.get(ExceptionUtils.CAR_EXISTED));
+    }
+    Book book = bookOptional.get();
+    if (book.getTotal() < dto.getAmount()) {
+      throw new CustomException(
+          ExceptionUtils.AMOUNT_NOT_VALID,
+          ExceptionUtils.messages.get(ExceptionUtils.AMOUNT_NOT_VALID));
     }
     Cart cart = new Cart(dto);
     cart.setUserId(user.getId());
@@ -81,6 +86,17 @@ public class CarServiceImpl implements CartService {
       throw new CustomException(
           ExceptionUtils.USER_NAME_NOT_VALID,
           ExceptionUtils.messages.get(ExceptionUtils.USER_NAME_NOT_VALID));
+    }
+    Optional<Book> bookOptional = bookRepository.findById(cartOptional.get().getBookId());
+    if (bookOptional.isEmpty()) {
+      throw new CustomException(
+          ExceptionUtils.BOOK_ID_NOT_EXIST,
+          ExceptionUtils.messages.get(ExceptionUtils.BOOK_ID_NOT_EXIST));
+    }
+    if (bookOptional.get().getTotal() < dto.getAmount()) {
+      throw new CustomException(
+          ExceptionUtils.AMOUNT_NOT_VALID,
+          ExceptionUtils.messages.get(ExceptionUtils.AMOUNT_NOT_VALID));
     }
     cart.setAmount(dto.getAmount());
     cartRepository.save(cart);

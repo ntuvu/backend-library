@@ -16,7 +16,7 @@ public interface UserService {
 
   Role saveRole(RoleDTO dto) throws CustomException;
 
-  void addRoleToUser(RoleToUserDTO dto);
+  void addRoleToUser(RoleToUserDTO dto) throws CustomException;
 
   User getUser(String username);
 
