@@ -1,15 +1,21 @@
 package com.example.btltute.services;
 
 import com.example.btltute.domains.Book;
+import com.example.btltute.domains.Image;
 import com.example.btltute.exceptions.CustomException;
 import com.example.btltute.exceptions.ExceptionUtils;
 import com.example.btltute.models.BookCreateDTO;
 import com.example.btltute.models.BookResponseDTO;
 import com.example.btltute.repositories.BookRepository;
+import com.example.btltute.repositories.ImageRepository;
+import com.example.btltute.repositories.TestRepositoryCustom;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +23,9 @@ import org.springframework.stereotype.Service;
 public class BookServiceImpl implements BookService {
 
   private final BookRepository bookRepository;
+  private final ImageService imageService;
+  private final ImageRepository imageRepository;
+  private final TestRepositoryCustom testRepositoryCustom;
 
   @Override
   public void createBook(BookCreateDTO dto) throws CustomException {
@@ -50,9 +59,8 @@ public class BookServiceImpl implements BookService {
   }
 
   @Override
-  public List<BookResponseDTO> listBook() throws CustomException {
-    List<Book> book = bookRepository.findAll();
-    return book.stream().map(BookResponseDTO::new).toList();
+  public Page<BookResponseDTO> listBook(Pageable pageable) throws CustomException {
+    return bookRepository.findAllBooks(pageable);
   }
 
   @Override
@@ -63,7 +71,10 @@ public class BookServiceImpl implements BookService {
           ExceptionUtils.BOOK_ID_NOT_EXIST,
           ExceptionUtils.messages.get(ExceptionUtils.BOOK_ID_NOT_EXIST));
     }
-    return new BookResponseDTO(bookOptional.get());
+    BookResponseDTO response = new BookResponseDTO(bookOptional.get());
+    Image image = imageRepository.findImageByBookId(response.getId());
+    response.setImageId(image.getId());
+    return response;
   }
 
   private void validate(BookCreateDTO dto) throws CustomException {
@@ -102,5 +113,10 @@ public class BookServiceImpl implements BookService {
           ExceptionUtils.TOTAL_NOT_VALID,
           ExceptionUtils.messages.get(ExceptionUtils.TOTAL_NOT_VALID));
     }
+  }
+
+  @Override
+  public List<Book> test() throws CustomException {
+    return testRepositoryCustom.getAllBook();
   }
 }

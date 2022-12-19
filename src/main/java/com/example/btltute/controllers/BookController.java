@@ -8,7 +8,9 @@ import com.example.btltute.models.ErrorDTO;
 import com.example.btltute.services.BookService;
 import com.example.btltute.services.ImageService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Parameter;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -50,9 +52,9 @@ public class BookController {
   }
 
   @GetMapping
-  public ResponseEntity<Object> listBook() {
+  public ResponseEntity<Object> listBook(Pageable pageable) {
     try {
-      return new ResponseEntity<>(bookService.listBook(), HttpStatus.OK);
+      return new ResponseEntity<>(bookService.listBook(pageable), HttpStatus.OK);
     } catch (CustomException ex) {
       return new ResponseEntity<>(
           new ErrorDTO(ex.getMessageKey(), ex.getMessage()), HttpStatus.BAD_REQUEST);
@@ -132,6 +134,20 @@ public class BookController {
           .contentType(MediaType.parseMediaType(image.getFileType()))
           .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + image.getFileName() + "\"")
           .body(new ByteArrayResource(image.getImageFile()));
+    } catch (CustomException ex) {
+      return new ResponseEntity<>(
+          new ErrorDTO(ex.getMessageKey(), ex.getMessage()), HttpStatus.BAD_REQUEST);
+    } catch (Exception ex) {
+      return new ResponseEntity<>(
+          ExceptionUtils.messages.get(ExceptionUtils.E_INTERNAL_SERVER),
+          HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @GetMapping("/test")
+  public ResponseEntity<Object> books() {
+    try {
+      return new ResponseEntity<>(bookService.test(), HttpStatus.OK);
     } catch (CustomException ex) {
       return new ResponseEntity<>(
           new ErrorDTO(ex.getMessageKey(), ex.getMessage()), HttpStatus.BAD_REQUEST);

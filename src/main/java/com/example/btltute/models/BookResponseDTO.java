@@ -27,14 +27,35 @@ public class BookResponseDTO {
 
   private String category;
 
+  private Integer total;
+
+  private Double cost;
+
+  private Long imageId;
+
+  public BookResponseDTO(Book book, Long imageId) {
+    this.id = book.getId();
+    this.title = book.getTitle();
+    this.author = book.getAuthor();
+    this.description = book.getDescription();
+    this.releaseDate = book.getReleaseDate();
+    this.pageNumber = book.getPageNumber();
+    this.category = book.getCategory();
+    this.total = book.getTotal();
+    this.cost = book.getCost();
+    this.imageId = imageId;
+  }
 
   public BookResponseDTO(Book book) {
     this.id = book.getId();
     this.title = book.getTitle();
     this.author = book.getAuthor();
     this.description = book.getDescription();
-    this.releaseDate = book.getReleaseDate();;
+    this.releaseDate = book.getReleaseDate();
     this.pageNumber = book.getPageNumber();
     this.category = book.getCategory();
+    this.total = book.getTotal();
+    this.cost = book.getCost();
+    this.imageId = imageId;
   }
 }
