@@ -30,7 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 @CrossOrigin("*")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/book")
+@RequestMapping("/book")
 public class BookController {
 
   private final BookService bookService;

@@ -33,14 +33,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http.csrf().disable();
     http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     http.authorizeRequests().antMatchers("/login/**").permitAll();
-    http.authorizeRequests().antMatchers("/api/auth/signup/**").permitAll();
-    http.authorizeRequests().antMatchers("/api/auth/add-role-to-user/**").hasAuthority("ROLE_ADMIN");
-    http.authorizeRequests().antMatchers("/api/auth/users/**").hasAuthority("ROLE_ADMIN");
-    http.authorizeRequests().antMatchers("/api/auth/role/**").hasAuthority("ROLE_ADMIN");
-    http.authorizeRequests().antMatchers("/api/book/admin/**").hasAuthority("ROLE_ADMIN");
+    http.authorizeRequests().antMatchers("/auth/signup/**").permitAll();
+    http.authorizeRequests()
+        .antMatchers("/auth/add-role-to-user/**")
+        .hasAuthority("ROLE_ADMIN");
+    http.authorizeRequests().antMatchers("/auth/users/**").hasAuthority("ROLE_ADMIN");
+    http.authorizeRequests().antMatchers("/auth/role/**").hasAuthority("ROLE_ADMIN");
+    http.authorizeRequests().antMatchers("/book/admin/**").hasAuthority("ROLE_ADMIN");
     http.authorizeRequests().anyRequest().authenticated();
     http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
-    http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+    http.addFilterBefore(
+        new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
   }
 
   @Bean
