@@ -6,6 +6,7 @@ import java.util.Collections;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -34,7 +35,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.csrf().disable();
+    http.csrf().disable().cors().configurationSource(configurationSource()).and()
+        .requiresChannel()
+        .anyRequest()
+        .requiresSecure();
     http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     http.authorizeRequests().antMatchers("/login/**").permitAll();
     http.authorizeRequests().antMatchers("/auth/signup/**").permitAll();
@@ -58,6 +62,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   CorsConfigurationSource corsConfigurationSource() {
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+    return source;
+  }
+
+  private CorsConfigurationSource configurationSource() {
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    CorsConfiguration config = new CorsConfiguration();
+    config.addAllowedOrigin("*");
+    config.setAllowCredentials(true);
+    config.addAllowedHeader("X-Requested-With");
+    config.addAllowedHeader("Content-Type");
+    config.addAllowedMethod(HttpMethod.POST);
+    source.registerCorsConfiguration("/**", config);
     return source;
   }
 }
