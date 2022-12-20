@@ -2,6 +2,7 @@ package com.example.btltute.security;
 
 import com.example.btltute.filters.CustomAuthenticationFilter;
 import com.example.btltute.filters.CustomAuthorizationFilter;
+import java.util.Collections;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -34,9 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     http.authorizeRequests().antMatchers("/login/**").permitAll();
     http.authorizeRequests().antMatchers("/auth/signup/**").permitAll();
-    http.authorizeRequests()
-        .antMatchers("/auth/add-role-to-user/**")
-        .hasAuthority("ROLE_ADMIN");
+    http.authorizeRequests().antMatchers("/auth/add-role-to-user/**").hasAuthority("ROLE_ADMIN");
     http.authorizeRequests().antMatchers("/auth/users/**").hasAuthority("ROLE_ADMIN");
     http.authorizeRequests().antMatchers("/auth/role/**").hasAuthority("ROLE_ADMIN");
     http.authorizeRequests().antMatchers("/book/admin/**").hasAuthority("ROLE_ADMIN");
@@ -50,5 +52,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   public AuthenticationManager authenticationManagerBean() throws Exception {
     return super.authenticationManagerBean();
+  }
+
+  @Bean
+  CorsConfigurationSource corsConfigurationSource() {
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+    return source;
   }
 }
