@@ -43,6 +43,7 @@ public class BookServiceImpl implements BookService {
     validate(dto);
     Book book = bookOptional.get();
     book.replace(dto);
+    book.setId(id);
     bookRepository.save(book);
   }
 

@@ -44,4 +44,21 @@ public class ImageServiceImpl implements ImageService {
     }
     return imageOptional.get();
   }
+
+  @Override
+  public void updateImage(MultipartFile file, Long id) throws CustomException, IOException {
+    Optional<Image> imageOptional = imageRepository.findById(id);
+    if (imageOptional.isEmpty()) {
+      throw new CustomException(
+          ExceptionUtils.IMAGE_NOT_EXIST,
+          ExceptionUtils.messages.get(ExceptionUtils.IMAGE_NOT_EXIST));
+    }
+    Image image = imageOptional.get();
+    String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+    image.setId(id);
+    image.setFileName(fileName);
+    image.setFileType(file.getContentType());
+    image.setImageFile(file.getBytes());
+    imageRepository.save(image);
+  }
 }

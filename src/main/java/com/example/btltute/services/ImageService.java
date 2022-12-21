@@ -9,5 +9,7 @@ public interface ImageService {
 
   void store(MultipartFile file, Long bookId) throws CustomException, IOException;
 
+  void updateImage(MultipartFile file, Long id) throws CustomException, IOException;
+
   Image getImage(Long id) throws CustomException;
 }
