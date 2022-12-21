@@ -7,6 +7,9 @@ import com.example.btltute.models.BookCreateDTO;
 import com.example.btltute.models.ErrorDTO;
 import com.example.btltute.services.BookService;
 import com.example.btltute.services.ImageService;
+import java.sql.Blob;
+import java.util.Base64;
+import javax.sql.rowset.serial.SerialBlob;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.Parameter;
 import org.springframework.core.io.ByteArrayResource;
@@ -130,10 +133,8 @@ public class BookController {
   public ResponseEntity<Object> getImage(@PathVariable(value = "id") Long id) {
     try {
       Image image = imageService.getImage(id);
-      return ResponseEntity.ok()
-          .contentType(MediaType.parseMediaType(image.getFileType()))
-          .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + image.getFileName() + "\"")
-          .body(new ByteArrayResource(image.getImageFile()));
+      String base64EncodedImageBytes = Base64.getEncoder().encodeToString(image.getImageFile());
+      return new ResponseEntity<>(base64EncodedImageBytes, HttpStatus.OK);
     } catch (CustomException ex) {
       return new ResponseEntity<>(
           new ErrorDTO(ex.getMessageKey(), ex.getMessage()), HttpStatus.BAD_REQUEST);

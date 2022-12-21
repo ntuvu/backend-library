@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -73,7 +72,11 @@ public class BookServiceImpl implements BookService {
     }
     BookResponseDTO response = new BookResponseDTO(bookOptional.get());
     Image image = imageRepository.findImageByBookId(response.getId());
-    response.setImageId(image.getId());
+    if (image == null) {
+      response.setImageId(null);
+    } else {
+      response.setImageId(image.getId());
+    }
     return response;
   }
 

@@ -16,6 +16,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
       value =
           "select new com.example.btltute.models.BookResponseDTO(b, i.id) "
               + "from Book b "
-              + "join Image i on b.id = i.bookId ")
+              + "left join Image i on b.id = i.bookId ")
   Page<BookResponseDTO> findAllBooks(Pageable pageable);
 }
