@@ -13,9 +13,10 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
 
   @Query(
       value =
-          "select new com.example.btltute.models.CartResponseDTO(c, b) "
+          "select new com.example.btltute.models.CartResponseDTO(c, b, i.id) "
               + "from Cart c "
               + "join Book b on c.bookId = b.id "
+              + "join Image i on c.bookId = i.bookId "
               + "where (:#{#userId} = c.userId) ")
   List<CartResponseDTO> findCartList(@Param(value = "userId") Long userId);
 }

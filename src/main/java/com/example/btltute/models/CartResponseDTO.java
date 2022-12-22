@@ -22,11 +22,14 @@ public class CartResponseDTO {
 
   private BookResponseDTO book;
 
-  public CartResponseDTO(Cart cart, Book book) {
+  private Long imageId;
+
+  public CartResponseDTO(Cart cart, Book book, Long imageId) {
     this.id = cart.getId();
     this.bookId = cart.getBookId();
     this.userId = cart.getUserId();
     this.amount = cart.getAmount();
     this.book = new BookResponseDTO(book);
+    this.imageId = imageId;
   }
 }

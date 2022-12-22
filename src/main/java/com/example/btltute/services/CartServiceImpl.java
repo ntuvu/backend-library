@@ -2,6 +2,7 @@ package com.example.btltute.services;
 
 import com.example.btltute.domains.Book;
 import com.example.btltute.domains.Cart;
+import com.example.btltute.domains.Image;
 import com.example.btltute.domains.User;
 import com.example.btltute.exceptions.CustomException;
 import com.example.btltute.exceptions.ExceptionUtils;
@@ -10,6 +11,7 @@ import com.example.btltute.models.CartResponseDTO;
 import com.example.btltute.models.CartUpdateDTO;
 import com.example.btltute.repositories.BookRepository;
 import com.example.btltute.repositories.CartRepository;
+import com.example.btltute.repositories.ImageRepository;
 import com.example.btltute.repositories.UserRepository;
 import java.util.List;
 import java.util.Objects;
@@ -27,6 +29,7 @@ public class CartServiceImpl implements CartService {
   private final CartRepository cartRepository;
   private final BookRepository bookRepository;
   private final UserRepository userRepository;
+  private final ImageRepository imageRepository;
 
   @Override
   public void createCart(CartCreateDTO dto) throws CustomException {

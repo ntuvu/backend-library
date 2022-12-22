@@ -48,6 +48,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
     User user = new User(dto);
     user.setPassword(passwordEncoder.encode(user.getPassword()));
+    Role role = roleRepository.findRoleByName("ROLE_USER");
+    user.getRoles().add(role);
     return userRepository.save(user);
   }
 
