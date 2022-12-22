@@ -13,6 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CartResponseDTO {
 
+  private Long id;
   private Long bookId;
 
   private Long userId;
@@ -22,6 +23,7 @@ public class CartResponseDTO {
   private BookResponseDTO book;
 
   public CartResponseDTO(Cart cart, Book book) {
+    this.id = cart.getId();
     this.bookId = cart.getBookId();
     this.userId = cart.getUserId();
     this.amount = cart.getAmount();
